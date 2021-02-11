@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/models/EventModel.dart';
 
+import '../detail.dart';
+
 class CustomListView extends StatelessWidget {
   List<EventModel> _events;
   bool launches;
@@ -14,9 +16,18 @@ class CustomListView extends StatelessWidget {
       shrinkWrap: true,
       itemCount: _events.length,
       itemBuilder: (BuildContext context, int index) {
-        return Container(
+        return InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => detail(_events[index])),
+            );
+          },
+          child: Container(
           margin: const EdgeInsets.only(left: 25, top: 5, right: 35, bottom: 5),
-          child: Card(
+
+          child:Card(
             child: Column(
               children: <Widget>[
                 Row(children: <Widget>[
@@ -50,7 +61,7 @@ class CustomListView extends StatelessWidget {
                                 color: Colors.grey)),
                       if (!launches)
                         Container(
-                          child: FlatButton(
+                          child: MaterialButton(
                             onPressed: () {},
                             color: ActiveInactive(_events[index].status),
                             height: 20,
@@ -78,6 +89,7 @@ class CustomListView extends StatelessWidget {
               ],
             ),
           ),
+        ),
         );
       },
     );

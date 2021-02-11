@@ -121,12 +121,62 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 class Upcoming extends StatelessWidget {
   List<EventModel> upcomingData = [
     EventModel("LAUNCH", "Starlink 2", "CCAES SLC 40", "16-10-2016",
-        "falconsat01.png", "")
+        "crs.png", "")
   ];
 
   @override
   Widget build(BuildContext context) {
-    return CustomListView(upcomingData, true);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        CustomListView(upcomingData, true),
+        Container(
+          margin: const EdgeInsets.only(left: 25, top: 5, right: 35, bottom: 5),
+          child: Column(
+
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              SizedBox(height: 25),
+              Text("LAUNCH DATE",
+                  style: TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red)),
+              SizedBox(height: 5),
+              Text("THU Oct 17 5:30:00 2019",
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black)),
+              SizedBox(height: 15),
+              Text("LAUNCH SITE",
+                  style: TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red)),
+              SizedBox(height: 5),
+              Text("Cape Canaveral Air Force Station Space Launch Complex 40",
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black)),
+              SizedBox(height: 15),
+              Text("COUNT DOWN",
+                  style: TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red)),
+              SizedBox(height: 5),
+              Text("5 Hrs 30mins more...",
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black)),
+            ],
+          ),
+        )
+      ],
+    );
   }
 }
 
