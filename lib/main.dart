@@ -31,19 +31,16 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
-  TabController _tabController;
   ScrollController _scrollViewController;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(vsync: this, length: 3);
     _scrollViewController = ScrollController(initialScrollOffset: 0.0);
   }
 
   @override
   void dispose() {
-    _tabController.dispose();
     _scrollViewController.dispose();
     super.dispose();
   }
@@ -51,121 +48,147 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: Drawer(),
-        resizeToAvoidBottomPadding: false,
-        appBar: AppBar(
-          title: Text('SpaceX'),
-          toolbarHeight: 120,
-          centerTitle: true,
-          backgroundColor: Colors.black,
-          bottom: TabBar(
-            indicatorColor: Colors.red,
-            indicatorWeight: 5,
-            indicatorSize: TabBarIndicatorSize.tab,
-            indicatorPadding: EdgeInsets.only(left: 40.0, right: 40.0),
-            unselectedLabelColor: Colors.grey,
-            labelColor: Colors.red,
-            labelStyle:
-            TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            tabs: <Widget>[
-              Container(
-                alignment: Alignment.centerRight,
-                height: 60,
-                padding: const EdgeInsets.only(left: 15.0, top:15,right: 0, bottom: 0),
-                child: Center(
-                  child: Text("Upcoming"),
+      drawer: Drawer(),
+      resizeToAvoidBottomPadding: false,
+      appBar: AppBar(
+        title: Text('SpaceX'),
+        centerTitle: true,
+        backgroundColor: Colors.black,
+      ),
+      body: DefaultTabController(
+        length: 3,
+        child: Column(
+          children: <Widget>[
+            Container(
+              color: Colors.black,
+              padding: const EdgeInsets.only(
+                  left: 0.0, top: 35, right: 0, bottom: 0),
+              constraints: BoxConstraints(maxHeight: 150.0),
+              child: Material(
+                color: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(25),
+                      topRight: Radius.circular(25)),
+                ),
+                child: TabBar(
+                  indicatorColor: Colors.red,
+                  indicatorWeight: 5,
+                  indicatorSize: TabBarIndicatorSize.tab,
+                  indicatorPadding: EdgeInsets.only(left: 40.0, right: 40.0),
+                  unselectedLabelColor: Colors.grey,
+                  labelColor: Colors.red,
+                  labelStyle:
+                      TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  tabs: <Widget>[
+                    Container(
+                      alignment: Alignment.centerRight,
+                      height: 60,
+                      padding: const EdgeInsets.only(
+                          left: 15.0, top: 15, right: 0, bottom: 0),
+                      child: Center(
+                        child: Text("Upcoming"),
+                      ),
+                    ),
+                    Container(
+                      alignment: Alignment.center,
+                      height: 40,
+                      padding: const EdgeInsets.only(top: 15),
+                      child: Center(
+                        child: Text("Launches"),
+                      ),
+                    ),
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      height: 40,
+                      padding: const EdgeInsets.only(
+                          left: 0.0, top: 15.0, right: 20.0),
+                      child: Center(
+                        child: Text("Rockets"),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              Container(
-                alignment: Alignment.center,
-                height: 40,
-                padding: const EdgeInsets.only(top:15),
-                child: Center(
-                  child: Text("Launches"),
-                ),
+            ),
+            Expanded(
+              child: TabBarView(
+                children: [
+                  Upcoming(),
+                  Launches(),
+                  Rockets(),
+                ],
               ),
-              Container(
-                alignment: Alignment.centerLeft,
-                height: 40,
-                padding: const EdgeInsets.only(left: 0.0, top: 15.0, right: 20.0),
-                child: Center(
-                  child: Text("Rockets"),
-                ),
-              ),
-            ],
-            controller: _tabController,
-          ),
+            ),
+          ],
         ),
-        body: TabBarView(
-            children: <Widget>[
-              Upcoming(),
-              Launches(),
-              Rockets(),
-            ],
-            controller: _tabController,
-          ),
-        );
+      ),
+    );
   }
 }
 
 class Upcoming extends StatelessWidget {
   List<EventModel> upcomingData = [
-    EventModel("LAUNCH", "Starlink 2", "CCAES SLC 40", "16-10-2016",
-        "crs.png", "")
+    EventModel(
+        "LAUNCH", "Starlink 2", "CCAES SLC 40", "16-10-2016", "crs.png", "")
   ];
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        CustomListView(upcomingData, true),
-        Container(
-          margin: const EdgeInsets.only(left: 25, top: 5, right: 35, bottom: 5),
-          child: Column(
-
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              SizedBox(height: 25),
-              Text("LAUNCH DATE",
-                  style: TextStyle(
-                      fontSize: 10,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.red)),
-              SizedBox(height: 5),
-              Text("THU Oct 17 5:30:00 2019",
-                  style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black)),
-              SizedBox(height: 15),
-              Text("LAUNCH SITE",
-                  style: TextStyle(
-                      fontSize: 10,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.red)),
-              SizedBox(height: 5),
-              Text("Cape Canaveral Air Force Station Space Launch Complex 40",
-                  style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black)),
-              SizedBox(height: 15),
-              Text("COUNT DOWN",
-                  style: TextStyle(
-                      fontSize: 10,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.red)),
-              SizedBox(height: 5),
-              Text("5 Hrs 30mins more...",
-                  style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black)),
-            ],
-          ),
-        )
-      ],
+    return Container(
+      color: Colors.white,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          CustomListView(upcomingData, true),
+          Container(
+            color: Colors.white,
+            padding:
+                const EdgeInsets.only(left: 25, top: 5, right: 35, bottom: 5),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                SizedBox(height: 25),
+                Text("LAUNCH DATE",
+                    style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.red)),
+                SizedBox(height: 5),
+                Text("THU Oct 17 5:30:00 2019",
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black)),
+                SizedBox(height: 15),
+                Text("LAUNCH SITE",
+                    style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.red)),
+                SizedBox(height: 5),
+                Text("Cape Canaveral Air Force Station Space Launch Complex 40",
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black)),
+                SizedBox(height: 15),
+                Text("COUNT DOWN",
+                    style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.red)),
+                SizedBox(height: 5),
+                Text("5 Hrs 30mins more...",
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black)),
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 }
