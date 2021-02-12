@@ -52,61 +52,51 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
         drawer: Drawer(),
-        body: NestedScrollView(
-          controller: _scrollViewController,
-          headerSliverBuilder: (BuildContext context, bool boxIsScrolled) {
-            return <Widget>[
-              SliverAppBar(
-                title: Text('SpaceX'),
-                centerTitle: true,
-                pinned: true,
-                floating: true,
-                forceElevated: boxIsScrolled,
-                backgroundColor: Colors.black,
-                expandedHeight: 150,
-                actions: <Widget>[
-                  IconButton(onPressed: () {}, icon: Icon(Icons.search))
-                ],
-                bottom: TabBar(
-                  indicatorColor: Colors.red,
-                  indicatorWeight: 5,
-                  indicatorSize: TabBarIndicatorSize.tab,
-                  indicatorPadding: EdgeInsets.only(left: 40.0, right: 40.0),
-                  unselectedLabelColor: Colors.grey,
-                  labelColor: Colors.red,
-                  labelStyle:
-                      TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  tabs: <Widget>[
-                    Container(
-                      alignment: Alignment.centerRight,
-                      height: 40,
-                      padding: const EdgeInsets.only(left: 15.0, right: 0),
-                      child: Center(
-                        child: Text("Upcoming"),
-                      ),
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      height: 40,
-                      child: Center(
-                        child: Text("Launches"),
-                      ),
-                    ),
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      height: 40,
-                      padding: const EdgeInsets.only(left: 0.0, right: 20.0),
-                      child: Center(
-                        child: Text("Rockets"),
-                      ),
-                    ),
-                  ],
-                  controller: _tabController,
+        resizeToAvoidBottomPadding: false,
+        appBar: AppBar(
+          title: Text('SpaceX'),
+          toolbarHeight: 120,
+          centerTitle: true,
+          backgroundColor: Colors.black,
+          bottom: TabBar(
+            indicatorColor: Colors.red,
+            indicatorWeight: 5,
+            indicatorSize: TabBarIndicatorSize.tab,
+            indicatorPadding: EdgeInsets.only(left: 40.0, right: 40.0),
+            unselectedLabelColor: Colors.grey,
+            labelColor: Colors.red,
+            labelStyle:
+            TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            tabs: <Widget>[
+              Container(
+                alignment: Alignment.centerRight,
+                height: 60,
+                padding: const EdgeInsets.only(left: 15.0, top:15,right: 0, bottom: 0),
+                child: Center(
+                  child: Text("Upcoming"),
                 ),
-              )
-            ];
-          },
-          body: TabBarView(
+              ),
+              Container(
+                alignment: Alignment.center,
+                height: 40,
+                padding: const EdgeInsets.only(top:15),
+                child: Center(
+                  child: Text("Launches"),
+                ),
+              ),
+              Container(
+                alignment: Alignment.centerLeft,
+                height: 40,
+                padding: const EdgeInsets.only(left: 0.0, top: 15.0, right: 20.0),
+                child: Center(
+                  child: Text("Rockets"),
+                ),
+              ),
+            ],
+            controller: _tabController,
+          ),
+        ),
+        body: TabBarView(
             children: <Widget>[
               Upcoming(),
               Launches(),
@@ -114,7 +104,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
             ],
             controller: _tabController,
           ),
-        ));
+        );
   }
 }
 

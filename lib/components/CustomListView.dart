@@ -25,8 +25,7 @@ class CustomListView extends StatelessWidget {
             );
           },
           child: Container(
-          margin: const EdgeInsets.only(left: 25, top: 5, right: 35, bottom: 5),
-
+          margin: const EdgeInsets.only(left: 25, top: 15, right: 35, bottom: 5),
           child:Card(
             child: Column(
               children: <Widget>[

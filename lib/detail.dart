@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/components/CustomListView.dart';
 import 'package:flutter_app/models/EventModel.dart';
 
 class detail extends StatelessWidget {
@@ -10,6 +9,7 @@ class detail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'SpaceX',
       theme: ThemeData(
         brightness: Brightness.light,
@@ -31,43 +31,45 @@ class detailPage extends StatefulWidget {
 
 class _detailPageState extends State<detailPage> with TickerProviderStateMixin {
   ScrollController _scrollViewController;
+  PageController pageController;
 
   @override
   void initState() {
     super.initState();
     _scrollViewController = ScrollController(initialScrollOffset: 0.0);
+    pageController = PageController(
+      initialPage: 0,
+      viewportFraction: 0.8,
+    );
   }
+
 
   @override
   void dispose() {
     _scrollViewController.dispose();
+
+    pageController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomPadding: false,
+        appBar: AppBar(
+          leading: BackButton(color: Colors.white),
+          backgroundColor: Colors.black,
+          actions: <Widget>[
+            IconButton(onPressed: () {}, icon: Icon(Icons.share))
+          ],
+        ),
         backgroundColor: Colors.black,
-        body: NestedScrollView(
-            controller: _scrollViewController,
-            headerSliverBuilder: (BuildContext context, bool boxIsScrolled) {
-              return <Widget>[
-                SliverAppBar(
-                  leading: BackButton(color: Colors.white),
-                  pinned: true,
-                  floating: true,
-                  forceElevated: boxIsScrolled,
-                  backgroundColor: Colors.black,
-                  expandedHeight: 150,
-                  actions: <Widget>[
-                    IconButton(onPressed: () {}, icon: Icon(Icons.share))
-                  ],
-                )
-              ];
-            },
-            body: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+        body: SingleChildScrollView(
+          child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
+                Image.asset("assets/crs.png"),
+                SizedBox(height: 30),
                 Container(
                   margin: const EdgeInsets.only(
                       left: 25, top: 5, right: 35, bottom: 5),
@@ -162,22 +164,24 @@ class _detailPageState extends State<detailPage> with TickerProviderStateMixin {
                                         fontSize: 10,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.red)),
+                                SizedBox(height: 5),
                                 Container(
-                                  child: MaterialButton(
-                                    onPressed: () {},
+                                  child: FlatButton(
+                                    onPressed: () => {},
                                     color: Colors.red,
-                                    height: 20,
+                                    padding: EdgeInsets.all(10.0),
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(5),
                                     ),
-                                    child: Text("Y",
-                                        style: TextStyle(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white)),
+                                    height: 5,
+                                    minWidth: 120,
+                                    child: Column( // Replace with a Row for horizontal icon + text
+                                      children: <Widget>[
+                                        Image.asset('assets/youtube.png',height: 15,),
+                                      ],
+                                    ),
                                   ),
                                 ),
-
                               ],
                             ),
                             Column(
@@ -199,27 +203,39 @@ class _detailPageState extends State<detailPage> with TickerProviderStateMixin {
                                         fontSize: 10,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.red)),
+                                SizedBox(height: 5),
                                 Container(
-                                  child: MaterialButton(
-                                    onPressed: () {},
-                                    color: Colors.red,
-                                    height: 20,
+                                  child: FlatButton(
+                                    onPressed: () => {},
+                                    color: Colors.deepOrangeAccent,
+                                    padding: EdgeInsets.all(10.0),
+
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(5),
                                     ),
-                                    child: Text("R",
-                                        style: TextStyle(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white)),
+                                    height: 5,
+                                    minWidth: 120,
+                                    child: Column( // Replace with a Row for horizontal icon + text
+                                      children: <Widget>[
+                                        Image.asset('assets/reddit.png',height: 15,),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ],
                             )
                           ]),
+                      SizedBox(height: 30),
+                      Text("SNEAK PEAK",
+                          style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.red)),
+                      SizedBox(height: 5),
+
                     ],
                   ),
-                )
+                ),
               ],
             )));
   }
